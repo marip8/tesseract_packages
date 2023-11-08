@@ -1,0 +1,27 @@
+name: build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build_job:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - deb_distro: focal
+            ros_distro: foxy
+          - deb_distro: jammy
+            ros_distro: humble
+    name: ${{ matrix.deb_distro }}_${{ matrix.ros_distro }}
+    runs-on: ubuntu-latest
+    container: ubuntu:${{ matrix.deb_distro }}
+    steps:
+      - uses: jspricke/ros-deb-builder-action@main
+        with:
+          DEB_DISTRO: ${{ matrix.deb_distro }}
+          ROS_DISTRO: ${{ matrix.ros_distro }}
+          REPOS_FILE: https://raw.githubusercontent.com/tesseract-robotics/tesseract/0.20.2/dependencies.repos
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SQUASH_HISTORY: true
+          SKIP_ROS_REPOSITORY: true
