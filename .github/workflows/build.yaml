@@ -18,6 +18,7 @@ jobs:
     container: ubuntu:${{ matrix.deb_distro }}
     steps:
       - run: |
+          apt update
           apt install sudo
       - uses: jspricke/ros-deb-builder-action@main
         with:
