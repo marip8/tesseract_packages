@@ -29,4 +29,3 @@ jobs:
           REPOS_FILE: https://raw.githubusercontent.com/tesseract-robotics/tesseract/0.20.2/dependencies.repos
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SQUASH_HISTORY: true
-          SKIP_ROS_REPOSITORY: true
