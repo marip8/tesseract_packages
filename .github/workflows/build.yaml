@@ -19,6 +19,7 @@ jobs:
     steps:
       - name: Setup
         run: |
+          export DEBIAN_FRONTEND=noninteractive
           apt update -qq
           apt install -y -qq sudo python3 python3-pip git curl lsb-release software-properties-common
       - name: Build
