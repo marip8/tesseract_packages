@@ -7,27 +7,14 @@ jobs:
   build_job:
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - deb_distro: focal
-            ros_distro: foxy
-            os_code: 20.04
-          - deb_distro: jammy
-            ros_distro: humble
-            os_code: 22.04
-    name: ${{ matrix.deb_distro }}_${{ matrix.ros_distro }}
-    runs-on: ubuntu-${{ matrix.os_code }}
+    name: jammy_humble
+    runs-on: ubuntu-22.04
     steps:
-      - name: Setup
-        run: |
-          export DEBIAN_FRONTEND=noninteractive
-          apt update -qq
-          apt install -y -qq sudo python3 python3-pip git curl lsb-release software-properties-common
-      - name: Build
-        uses: jspricke/ros-deb-builder-action@main
+      - uses: jspricke/ros-deb-builder-action@main
         with:
-          DEB_DISTRO: ${{ matrix.deb_distro }}
-          ROS_DISTRO: ${{ matrix.ros_distro }}
+          DEB_DISTRO: jammy
+          ROS_DISTRO: humble
           REPOS_FILE: https://raw.githubusercontent.com/tesseract-robotics/tesseract/0.20.2/dependencies.repos
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SQUASH_HISTORY: true
+          SKIP_ROS_REPOSITORY: true
