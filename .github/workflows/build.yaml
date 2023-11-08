@@ -17,14 +17,15 @@ jobs:
     runs-on: ubuntu-latest
     container: ubuntu:${{ matrix.deb_distro }}
     steps:
-      - run: |
-          apt update
-          apt install sudo
-      - uses: jspricke/ros-deb-builder-action@main
+      - name: Setup
+        run: |
+          apt update -qq
+          apt install -y -qq sudo
+      - name: Build
+        uses: jspricke/ros-deb-builder-action@main
         with:
           DEB_DISTRO: ${{ matrix.deb_distro }}
           ROS_DISTRO: ${{ matrix.ros_distro }}
           REPOS_FILE: https://raw.githubusercontent.com/tesseract-robotics/tesseract/0.20.2/dependencies.repos
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SQUASH_HISTORY: true
-          SKIP_ROS_REPOSITORY: true
