@@ -11,11 +11,12 @@ jobs:
         include:
           - deb_distro: focal
             ros_distro: foxy
+            os_code: 20.04
           - deb_distro: jammy
             ros_distro: humble
+            os_code: 22.04
     name: ${{ matrix.deb_distro }}_${{ matrix.ros_distro }}
-    runs-on: ubuntu-latest
-    container: ubuntu:${{ matrix.deb_distro }}
+    runs-on: ubuntu-${{ matrix.os_code }}
     steps:
       - name: Setup
         run: |
