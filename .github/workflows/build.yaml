@@ -20,7 +20,7 @@ jobs:
       - name: Setup
         run: |
           apt update -qq
-          apt install -y -qq sudo python3 python3-pip git curl lsb-release
+          apt install -y -qq sudo python3 python3-pip git curl lsb-release software-properties-common
       - name: Build
         uses: jspricke/ros-deb-builder-action@main
         with:
